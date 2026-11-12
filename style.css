@@ -1,0 +1,448 @@
+/* ============================================================
+   style.css — 个人文章存档站
+   目录页 + 文章页共用
+   ============================================================ */
+
+/* ---------- 1. 设计变量：改这里就能整体换风格 ---------- */
+:root {
+  /* 颜色 */
+  --bg:        #faf9f7;   /* 页面背景，偏暖白，像纸 */
+  --text:      #2f2c28;   /* 正文主色 */
+  --text-sub:  #8a837a;   /* 次要文字：日期、简介 */
+  --accent:    #b8563f;   /* 强调色：悬停、链接 */
+  --line:      #e8e4de;   /* 分割线 */
+
+  /* 尺寸 */
+  --wrap:   720px;        /* 内容最大宽度，窄栏更易读 */
+  --radius: 10px;
+
+  /* 字体 */
+  --font-body:  "Hiragino Sans GB", "PingFang SC",
+                "Microsoft YaHei", system-ui, sans-serif;
+  --font-title: "Songti SC", "SimSun", Georgia, serif; /* 标题用衬线，更有存档感 */
+}
+
+/* ---------- 2. 基础重置 ---------- */
+* {
+  box-sizing: border-box;  /* padding 不再撑大元素宽度 */
+}
+
+body {
+  margin: 0;
+  padding: 48px 20px 80px;  /* 上 / 左右 / 下，两侧留白给手机 */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 用键盘 Tab 聚焦时给出可见提示（无障碍） */
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ---------- 3. 页面容器：整体居中 ---------- */
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+}
+
+/* ---------- 4. 页头 ---------- */
+header {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+header h1 {
+  margin: 0 0 6px;
+  font-family: var(--font-title);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+header p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* ---------- 5. 目录列表 ---------- */
+.toc {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 相邻两项之间画分割线，第一项不加 */
+.toc-item + .toc-item {
+  border-top: 1px solid var(--line);
+}
+
+/* 每一项整体是一个可点击的链接区域 */
+.toc-item > a {
+  display: block;
+  padding: 18px 12px;
+  border-radius: var(--radius);
+  transition: background-color 0.18s ease;
+}
+
+.toc-item > a:hover {
+  background-color: rgba(184, 86, 63, 0.06); /* 淡淡的强调色 */
+}
+
+/* 左侧：标题 + 简介 */
+.toc-main {
+  min-width: 0;        /* 关键：允许长文本换行，不被 flex 挤爆 */
+}
+
+.toc-title {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color 0.18s ease;
+}
+
+.toc-item > a:hover .toc-title {
+  color: var(--accent);
+}
+
+/* 简介栏 */
+.toc-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-sub);
+
+  /* 简介最多显示两行，超出部分省略号 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+/* ---------- 6. 文章页样式 ---------- */
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+  transition: color 0.18s ease;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.article-header {
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.article-header h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-title);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+
+.article-body p {
+  margin: 0 0 1.4em;
+}
+
+.article-body h2 {
+  margin: 2em 0 0.8em;
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.article-body blockquote {
+  margin: 1.4em 0;
+  padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--line);
+  color: var(--text-sub);
+}
+
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.article-body code {
+  padding: 2px 5px;
+  background: #f0ede8;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ---------- 7. 窄屏适配：日期移到标题下方 ---------- */
+@media (max-width: 520px) {
+  body {
+    padding: 32px 16px 64px;
+  }
+
+  /* 竖排后 flex-direction 会让日期自然落到最下面 */
+  .toc-item > a {
+   padding: 16px 8px;   /* 保留，只是内边距调整 */
+  }
+}
+
+/* ============================================================
+   追加：排序控件 + 分页条
+   ============================================================ */
+
+/* ---------- 8. 页头：标题与排序控件分列两端 ---------- */
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;          /* 窄屏时排序控件自动换行 */
+}
+
+.header-top h1 {
+  margin-bottom: 0;         /* 覆盖原来的 margin */
+}
+
+header p {
+  margin-top: 6px;          /* 覆盖原来的 margin: 0 */
+}
+
+.sort-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-sub);
+  white-space: nowrap;
+}
+
+.sort-label select {
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sort-label select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- 9. 分页条 ---------- */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.pager[hidden] {
+  display: none;            /* 只有一页时彻底不占位 */
+}
+
+/* 上一页/下一页 和 数字页码 共用的基础样式 */
+.pager-btn,
+.pager-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+a.pager-btn:hover,
+a.pager-num:hover {
+  background: rgba(184, 86, 63, .07);
+  color: var(--accent);
+}
+
+/* 当前页：实心强调色 */
+.pager-num.is-current {
+  color: #fff;
+  background: var(--accent);
+  font-weight: 600;
+}
+
+/* 首页的“上一页”、末页的“下一页” */
+.pager-btn.is-disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.pager-gap {
+  padding: 0 2px;
+  color: var(--text-sub);
+}
+
+/* ============================================================
+   追加：markdown 渲染后的补充样式
+   （.article-body 里已有的 p/h2/blockquote/img/code 继续生效）
+   ============================================================ */
+
+.article-status {
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+/* 列表 */
+.article-body ul,
+.article-body ol {
+  margin: 0 0 1.4em;
+  padding-left: 1.6em;
+}
+
+.article-body li {
+  margin: 0.3em 0;
+}
+
+/* 行内代码以外的代码块 */
+.article-body pre {
+  margin: 1.4em 0;
+  padding: 14px 16px;
+  overflow-x: auto;          /* 长代码横向滚动，不撑破版面 */
+  background: #f3f0eb;
+  border-radius: 8px;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.article-body pre code {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* 表格 */
+.article-body table {
+  width: 100%;
+  margin: 1.4em 0;
+  border-collapse: collapse;
+  font-size: 14.5px;
+}
+
+.article-body th,
+.article-body td {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.article-body th {
+  background: #f6f3ef;
+  font-weight: 600;
+}
+
+/* 分割线 */
+.article-body hr {
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+/* 外链 */
+.article-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ============================================================
+   追加：文章内分页条
+   ============================================================ */
+
+.article-pager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.article-pager[hidden] {
+  display: none;
+}
+
+/* 「第 x / y 页」单独占一行 */
+.pager-info {
+  width: 100%;
+  margin-top: 4px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--text-sub);
+}
+
+/* ---------- 10. 回到顶部 ---------- */
+.back-to-top-wrap {
+  margin: 32px 0 0;
+  text-align: center;
+}
+
+.back-to-top {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 13.5px;
+  color: var(--text-sub);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: color .18s ease, border-color .18s ease, background-color .18s ease;
+}
+
+.back-to-top:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(184, 86, 63, .06);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- 11. 正文注音 ---------- */
+.article-body ruby {
+  ruby-align: center;        /* 注音在汉字上方居中 */
+  line-height: 2.1;          /* 撑开行盒，给上方注音留空间 */
+}
+
+.article-body rt {
+  font-size: 0.72em;         /* 默认约 0.5em，这里放大 */
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--text-sub);    /* 注音用次要色，不抢正文 */
+}
