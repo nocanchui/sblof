@@ -58,7 +58,7 @@ a:focus-visible {
 
 /* ---------- 4. 页头 ---------- */
 header {
-  margin-bottom: 28px;
+  margin-bottom: 0; /* 原来是 28px，直接改成 0 */
   padding-bottom: 18px;
   border-bottom: 1px solid var(--line);
 }
@@ -446,11 +446,20 @@ a.pager-num:hover {
   letter-spacing: 0.02em;
   color: var(--text-sub);    /* 注音用次要色，不抢正文 */
 }
-/* ---------- 12. 目录页顶部一行字 ---------- */
-.site-notice {
-  margin: 0 0 24px;
-  font-size: 13.5px;
-  line-height: 1.6;
-  text-align: center;
-  color: var(--text-sub);
+/* ---------- 12. 标题下方一行字 ---------- */
+.header-note {
+  margin: 8px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  /* 改颜色 */
+color: var(--accent); opacity: 0.85; /* 或者直接用 var(--text) 稍微加一点透明度 */
+  font-weight: 500; /* 稍微加粗，但不至于太抢眼 */
+}
+/* 如果想用主题色（砖红色），可以换成这样： */
+/* color: var(--accent); opacity: 0.85; */
+
+.header-note a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
