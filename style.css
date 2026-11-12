@@ -446,3 +446,20 @@ a.pager-num:hover {
   letter-spacing: 0.02em;
   color: var(--text-sub);    /* 注音用次要色，不抢正文 */
 }
+/* ---------- 12. 目录页顶部一行字 ---------- */
+.site-notice {
+  margin: 0 0 24px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-sub);
+  background: rgba(184, 86, 63, .06);   /* 沿用强调色的淡底 */
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+}
+
+.site-notice a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
