@@ -1,0 +1,69 @@
+name: Encrypt and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Staticrypt
+        run: npm install -g staticrypt
+
+      - name: Encrypt files
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+        run: |
+          # 创建输出目录
+          mkdir -p dist
+          
+          # 运行加密，让它随便生成（即使生成了 dist/src 也没关系）
+          staticrypt ./src -r \
+            --salt "a1b2c3d4e5f678901234567890abcdef" \
+            --remember 168 \
+            --share-remember \
+            --template ./src/password_template.html \
+            --template-title "请输入密码" \
+            --template-instructions "提示：WS接下来要参加试镜的剧目是？" \
+            --short \
+            --directory ./dist
+            
+          # 🔥 关键自救代码：把嵌套的 src 里面的所有文件，强制移到外层 dist
+          if [ -d "dist/src" ]; then
+            echo "检测到嵌套的 src 文件夹，正在提取文件..."
+            mv dist/src/* dist/
+            rm -rf dist/src
+          fi
+          
+          # 检查是否成功生成了文件
+          echo "=== 检查 dist 文件夹内容 ==="
+          ls -la dist/
+          
+          # 如果 dist 为空，强制报错阻止部署
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ 错误：加密失败，dist 目录中没有 index.html！"
+            exit 1
+          fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
