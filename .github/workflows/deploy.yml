@@ -38,8 +38,8 @@ jobs:
             --remember 168 \
             --share-remember \
             --template ./src/password_template.html \
-            --template-title "请输入密码" \
-            --template-instructions "tips：WS接下来要参加试镜的剧目是？不想反复输记得点rember" \
+            --template-title "WS接下来要参加试镜的剧目是？" \
+            --template-instructions "tips:不想反复输密码记得点rember me" \
             --short \
             --directory ./dist
             
