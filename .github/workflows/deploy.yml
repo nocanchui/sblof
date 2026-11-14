@@ -39,7 +39,7 @@ jobs:
             --share-remember \
             --template ./src/password_template.html \
             --template-title "WS接下来要参加试镜的剧目是？" \
-            --template-instructions "tips:不想反复输密码记得点rember me" \
+            --template-instructions "tips:不想反复输密码记得点Remember me" \
             --short \
             --directory ./dist
             
