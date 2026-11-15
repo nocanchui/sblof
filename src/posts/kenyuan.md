@@ -72,7 +72,8 @@ ai翻译+个人润色，如有错误还请指正
 ## 恳求
 
 
-::: open 想直接看lof省略部分可以折叠
+::: open <span style="color:#CCCCCC;">想直接看lof省略部分可以折叠</span>
+
 
 「真是够久的啊……唔……」
 
