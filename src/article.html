@@ -241,7 +241,7 @@ fetch('posts/' + encodeURIComponent(slug) + '.md', {
       [50, 90].forEach(function (milestone) {
         if (scrollPercent >= milestone && !scrollTracked.has(milestone)) {
           scrollTracked.add(milestone);
-          window.umami.track('scroll-depth', { percent: milestone });
+          window.umami.track('scroll-depth-' + milestone);
         }
       });
     }, { passive: true });
