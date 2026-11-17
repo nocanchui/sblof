@@ -17,12 +17,6 @@ window.POSTS = [
     desc: "搞笑R18",
     slug: "chuye"
   },
- {
-    title: "测试用",
-    date: "2025-1-1",
-    desc: "",
-    slug: "text"
-  },
     {
     title: "恳求",
     date: "2026-11-12",
