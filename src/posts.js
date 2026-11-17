@@ -11,10 +11,16 @@ window.POSTS = [
     desc: "（笑）",
     slug: "joke"
   },
+ {
+    title: "全部只属于你",
+    date: "2025-03-02",
+    desc: "亲吻只属于你番外",
+    slug: "onlyyou"
+  },
   {
     title: "有点不对劲的初夜（实战篇）",
     date: "2026-11-15",
-    desc: "搞笑R18",
+    desc: "搞笑R18番外",
     slug: "chuye"
   },
     {
