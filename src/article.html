@@ -101,11 +101,15 @@ fetch('posts/' + encodeURIComponent(slug) + '.md', {
     });
 
   /* ---------- 渲染当前页 ---------- */
-  function renderPage() {
+    function renderPage() {
     bodyEl.innerHTML = pages[currentPage - 1];
     renderPager();
     writeHash(currentPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 切换文章内分页时，重置滚动跟踪
+    if (typeof window.__resetScrollTracking === 'function') {
+      window.__resetScrollTracking();
+    }
   }
 
   function renderPager() {
@@ -205,6 +209,61 @@ fetch('posts/' + encodeURIComponent(slug) + '.md', {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;')
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+    /* ---------- 滚动跟踪：改善访问时长统计 ---------- */
+  let scrollTracked = new Set();
+  let suppressScrollUntil = 0;      // 平滑滚动期间忽略事件，防止误触发
+  let scrollTrackingStarted = false;
+
+  // 供 renderPage 调用：切换分页时清空已触发记录
+  window.__resetScrollTracking = function () {
+    scrollTracked = new Set();
+    // 只有在页面已经滚动过（非初始加载）时才抑制，
+    // 避免平滑滚回顶部的过程中误判 90%
+    if (window.scrollY > 0) {
+      suppressScrollUntil = Date.now() + 800;
+    }
+  };
+
+  function startScrollTracking() {
+    if (scrollTrackingStarted) return;
+    if (typeof window.umami === 'undefined') return;
+    scrollTrackingStarted = true;
+
+    window.addEventListener('scroll', function () {
+      if (Date.now() < suppressScrollUntil) return;
+
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight <= 0) return;   // 页面没有可滚动区域
+
+      const scrollPercent = Math.round((window.scrollY / scrollHeight) * 100);
+
+      [50, 90].forEach(function (milestone) {
+        if (scrollPercent >= milestone && !scrollTracked.has(milestone)) {
+          scrollTracked.add(milestone);
+          window.umami.track('scroll-depth', { percent: milestone });
+        }
+      });
+    }, { passive: true });
+  }
+
+  // Umami 脚本在 IIFE 之后才 defer 加载，这里要等它就绪
+  if (typeof window.umami !== 'undefined') {
+    startScrollTracking();
+  } else {
+    // Umami v2 加载完成后会派发 umami:loaded 事件
+    window.addEventListener('umami:loaded', startScrollTracking);
+
+    // 兜底：万一事件没触发，轮询最多 10 秒
+    let tries = 0;
+    const timer = setInterval(function () {
+      if (typeof window.umami !== 'undefined') {
+        startScrollTracking();
+        clearInterval(timer);
+      } else if (++tries > 20) {
+        clearInterval(timer);
+      }
+    }, 500);
   }
 })();
 </script>
