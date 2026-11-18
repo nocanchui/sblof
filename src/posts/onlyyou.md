@@ -6,6 +6,25 @@
 全文4k+
 R18番外，推荐看完正文再来→ [亲吻只属于你](https://dddei.lofter.com/post/1f33c83a_34fadc58c)
 
+
+作者推上发了正篇的同人图，不让随便转载所以限时放一下，过两天删。
+<br>
+<br>
+::: 点击展开，注意流量
+雨中初遇的场景
+<br>
+<img src="images/1-1.jpg" alt="01" width="100%">
+<img src="images/1-2.jpg" alt="02" width="100%">
+<img src="images/1-3.jpg" alt="03" width="100%">
+<img src="images/1-4.jpg" alt="04" width="100%">
+<br>
+<br>
+居酒
+<br>
+<img src="images/2-1.jpg" alt="1" width="100%">
+:::
+
+<br>
 >**简介**
 >在「亲吻只属于你」中交往的初夜🎈🌟。初夜前，刚交往不久、正飘飘然的🎈，以及希望对方对自己出手的🌟。
 
