@@ -18,11 +18,12 @@ R18番外，推荐看完正文再来→ [亲吻只属于你](https://dddei.lofte
 <img src="images/1-4.jpg" alt="04" width="100%">
 <br>
 <br>
-居酒
+居酒屋
 <br>
 <img src="images/2-1.jpg" alt="1" width="100%">
 :::
 
+<br>
 
 >**简介**
 >在「亲吻只属于你」中交往的初夜🎈🌟。初夜前，刚交往不久、正飘飘然的🎈，以及希望对方对自己出手的🌟。
