@@ -6,9 +6,9 @@
 
 window.POSTS = [
   {
-    title: "术士券笑话",
+    title: "笑话合集",
     date: "2025-03-02",
-    desc: "（笑）",
+    desc: "只是一些搞笑分享",
     slug: "joke"
   },
  {
