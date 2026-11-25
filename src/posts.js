@@ -11,6 +11,12 @@ window.POSTS = [
     desc: "只是一些搞笑分享",
     slug: "joke"
   },
+    {
+    title: "不想要第二次被触碰",
+    date: "2026-11-25",
+    desc: "请注意阅读简介",
+    slug: "2ci"
+  },
  {
     title: "全部只属于你",
     date: "2026-11-17",
