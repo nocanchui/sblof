@@ -69,13 +69,13 @@ ai翻译+个人润色，如有错误还请指正
 
 ***
 
+想直接看lof省略部分见[【第二页】](https://nocanchui.github.io/sblof/article.html?p=kenyuan#page=2)最后
+
 ## 恳求
 
 <br><br>
 
-::: open <span style="color:#CCCCCC;">想直接看lof省略部分可以折叠</span>
 
-<br>
 「真是够久的啊……唔……」
 
 受委托的演出策划协商比预想的拖得更久。
