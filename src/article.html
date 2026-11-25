@@ -71,13 +71,13 @@ fetch('posts/' + encodeURIComponent(slug) + '.md', {
         // ::: 标题 … :::   默认折叠
       // ::: open 标题 … :::  默认展开
       md = md.replace(
-        /^:::[ \t]*(open[ \t]+)?(.+?)[ \t]*\r?\n([\s\S]*?)\r?\n:::[ \t]*$/gm,
-        function (_, open, title, inner) {
-          return '<details' + (open ? ' open' : '') + '>\n<summary>' +
-                 title.trim() + '</summary>\n\n' +
-                 inner.trim() + '\n\n</details>';
-        }
-      );
+      /^:::[ \t]*(open[ \t]+)?(.+?)[ \t]*\r?\n([\s\S]*?)\r?\n:::[ \t]*$/gm,
+      function (_, open, title, inner) {
+       return '\n<details' + (open ? ' open' : '') + '>\n<summary>' +
+           title.trim() + '</summary>\n\n' +
+           inner.trim() + '\n\n</details>\n';
+  }
+);
 
       let html = marked.parse(md);
 
